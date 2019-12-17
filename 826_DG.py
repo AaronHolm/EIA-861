@@ -1,9 +1,10 @@
 import pandas as pd
 import sqlalchemy as sa
 from io import StringIO
+from config import *
 
 def to_sql(df):
-  address = 'postgresql://PG:PGAH17@data.seia.org:5432/seia'
+  address = SQL_ADDRESS
   engine = sa.create_engine(address)
   con = engine.raw_connection()
   cursor = con.cursor()
@@ -28,7 +29,7 @@ def combine826():
   queryNEM = "SELECT state, year, month, sector, result_value as nem_value FROM markets.eia_826_nem where sheet = 'Capacity'"
   queryNonNEM = "SELECT state, year, month, sector, result_value as nonnem_value FROM markets.eia_826_nonnem where sheet = 'Photovoltaic'"
 
-  engine = sa.create_engine('postgresql://PG:PGAH17@data.seia.org:5432/seia')
+  engine = sa.create_engine(SQL_ADDRESS)
   nem = pd.read_sql(queryNEM, engine)
   nem['nem_value'] = nem['nem_value'].fillna(0)
   nonnem = pd.read_sql(queryNonNEM, engine)

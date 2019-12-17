@@ -1,10 +1,10 @@
 import sqlalchemy as sa
 import pandas as pd
 from io import StringIO
+from ...config import *
 
 def to_sql(gen):
-	address = 'postgresql://PG:PGAH17@data.seia.org:5432/seia'
-	engine = sa.create_engine(address)
+	engine = sa.create_engine(SQL_ADDRESS)
 	con = engine.raw_connection()
 	cursor = con.cursor()
 

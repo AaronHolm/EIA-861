@@ -4,9 +4,9 @@ import io
 
 def getCapacity(url):
 	data = requests.get(url).content
-	sheet = pd.read_excel(io.BytesIO(data), sheetname='Monthly_Totals-States', skiprows=3, skip_footer=1, parse_cols="A:H")
-	sheet.rename(columns={'Year':'year', 'Month':'month', 'State':'state'}, inplace=True)
-	#sheet.columns=['year', 'month', 'state', 'Residential', 'Commercial', 'Industrial', 'Transportation']
+	sheet = pd.read_excel(io.BytesIO(data), sheet_name='Monthly_Totals-States', skiprows=3, skip_footer=1, usecols="A:C,E:H")
+	#sheet.rename(columns={'Year':'year', 'Month':'month', 'State':'state'}, inplace=True)
+	sheet.columns=['year', 'month', 'state', 'Residential', 'Commercial', 'Industrial', 'Transportation']
 	f2016cap = pd.melt(sheet, id_vars=['year', 'month', 'state'], value_vars=['Residential', 'Commercial', 'Industrial', 'Transportation'], var_name='sector', value_name='value')
 	f2016cap['units'] = 'MW'
 	f2016cap['nem'] = 'Yes'
@@ -16,10 +16,10 @@ def getCapacity(url):
 
 def getEnergySoldBack(url):
 	data = requests.get(url).content
-	sheet = pd.read_excel(io.BytesIO(data), sheetname='Monthly_Totals-States', skiprows=3, skip_footer=1, parse_cols="A:C,O:R")
-	sheet.rename(columns={'Year':'year','Month':'month','State':'state'}, inplace=True)
-	#sheet.columns = ['year', 'month', 'state', 'Residential', 'Commercial', 'Industrial', 'Transportation']
-	f2016esb = pd.melt(sheet, id_vars=['year', 'month', 'state'], value_vars=['Residential', 'Commercial', 'Industrial', 'Transportationi'], var_name='sector', value_name='value')
+	sheet = pd.read_excel(io.BytesIO(data), sheet_name='Monthly_Totals-States', skiprows=3, skip_footer=1, usecols="A:C,O:R")
+	#sheet.rename(columns={'Year':'year','Month':'month','State':'state'}, inplace=True)
+	sheet.columns = ['year', 'month', 'state', 'Residential', 'Commercial', 'Industrial', 'Transportation']
+	f2016esb = pd.melt(sheet, id_vars=['year', 'month', 'state'], value_vars=['Residential', 'Commercial', 'Industrial', 'Transportation'], var_name='sector', value_name='value')
 	f2016esb['units'] = 'MWh'
 	f2016esb['nem'] = 'Yes'
 	f2016esb['type'] = 'PV'
@@ -28,9 +28,9 @@ def getEnergySoldBack(url):
 
 def getCount(url):
 	data = requests.get(url).content
-	sheet = pd.read_excel(io.BytesIO(data), sheetname='Monthly_Totals-States', skiprows=3, skip_footer=1, parse_cols="A:C,J:M")
-	sheet.rename(columns={'Year':'year','Month':'month','State':'state'}, inplace=True)
-	#sheet.columns = ['year', 'month', 'state', 'Residential', 'Commercial', 'Industrial', 'Transportation']
+	sheet = pd.read_excel(io.BytesIO(data), sheet_name='Monthly_Totals-States', skiprows=3, skip_footer=1, usecols="A:C,J:M")
+	#sheet.rename(columns={'Year':'year','Month':'month','State':'state'}, inplace=True)
+	sheet.columns = ['year', 'month', 'state', 'Residential', 'Commercial', 'Industrial', 'Transportation']
 	f2016count = pd.melt(sheet, id_vars=['year', 'month', 'state'], value_vars=['Residential', 'Commercial', 'Industrial', 'Transportation'], var_name='sector', value_name='value')
 	f2016count['units'] = "#"
 	f2016count['nem'] = 'Yes'

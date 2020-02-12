@@ -4,9 +4,9 @@ import io
 
 def getCapacity(url):
 	data = requests.get(url).content
-	sheet = pd.read_excel(io.BytesIO(data), sheetname='Monthly_Totals-States', skiprows=3, skip_footer=1, parse_cols="A:C,E:H")
-	sheet.rename(columns={'Year':'year', 'Month':'month', 'State':'state'}, inplace=True)
-	#sheet.columns=['year', 'month', 'state', 'Residential', 'Commercial', 'Industrial', 'Transportation']
+	sheet = pd.read_excel(io.BytesIO(data), sheet_name='Monthly_Totals-States', skiprows=3, skip_footer=1, usecols="A:C,E:H")
+	#sheet.rename(columns={'Year':'year', 'Month':'month', 'State':'state'}, inplace=True)
+	sheet.columns=['year', 'month', 'state', 'Residential', 'Commercial', 'Industrial', 'Transportation']
 	f2018cap = pd.melt(sheet, id_vars=['year', 'month', 'state'], value_vars=['Residential', 'Commercial', 'Industrial', 'Transportation'], var_name='sector', value_name='value')
 	f2018cap['units'] = 'MW'
 	f2018cap['nem'] = 'Yes'
@@ -16,8 +16,9 @@ def getCapacity(url):
 
 def getStorageCapacity(url):
 	data = requests.get(url).content
-	sheet = pd.read_excel(io.BytesIO(data), sheetname='Monthly_Totals-States', skiprows=3, skip_footer=1, parse_cols='A:C,O:R')
-	sheet.rename(columns={'Year':'year', 'Month':'month', 'State':'state'}, inplace=True)
+	sheet = pd.read_excel(io.BytesIO(data), sheet_name='Monthly_Totals-States', skiprows=3, skip_footer=1, usecols='A:C,O:R')
+	#sheet.rename(columns={'Year':'year', 'Month':'month', 'State':'state'}, inplace=True)
+	sheet.columns=['year', 'month', 'state', 'Residential', 'Commercial', 'Industrial', 'Transportation']
 	f2018es = pd.melt(sheet, id_vars=['year', 'month', 'state'], value_vars=['Residential', 'Commercial', 'Industrial', 'Transportation'], var_name='sector', value_name='value')
 	f2018es['units'] = 'MW'
 	f2018es['nem'] = 'Yes'
@@ -27,10 +28,10 @@ def getStorageCapacity(url):
 
 def getEnergySoldBack(url):
 	data = requests.get(url).content
-	sheet = pd.read_excel(io.BytesIO(data), sheetname='Monthly_Totals-States', skiprows=3, skip_footer=1, parse_cols="A:C,AI:AL")
-	sheet.rename(columns={'Year':'year','Month':'month','State':'state'}, inplace=True)
-	#sheet.columns = ['year', 'month', 'state', 'Residential', 'Commercial', 'Industrial', 'Transportation']
-	f2018esb = pd.melt(sheet, id_vars=['year', 'month', 'state'], value_vars=['Residential', 'Commercial', 'Industrial', 'Transportationi'], var_name='sector', value_name='value')
+	sheet = pd.read_excel(io.BytesIO(data), sheet_name='Monthly_Totals-States', skiprows=3, skip_footer=1, usecols="A:C,AI:AL")
+	#sheet.rename(columns={'Year':'year','Month':'month','State':'state'}, inplace=True)
+	sheet.columns = ['year', 'month', 'state', 'Residential', 'Commercial', 'Industrial', 'Transportation']
+	f2018esb = pd.melt(sheet, id_vars=['year', 'month', 'state'], value_vars=['Residential', 'Commercial', 'Industrial', 'Transportation'], var_name='sector', value_name='value')
 	f2018esb['units'] = 'MWh'
 	f2018esb['nem'] = 'Yes'
 	f2018esb['type'] = 'PV'
@@ -39,9 +40,9 @@ def getEnergySoldBack(url):
 
 def getCount(url):
 	data = requests.get(url).content
-	sheet = pd.read_excel(io.BytesIO(data), sheetname='Monthly_Totals-States', skiprows=3, skip_footer=1, parse_cols="A:C,J:M")
-	sheet.rename(columns={'Year':'year','Month':'month','State':'state'}, inplace=True)
-	#sheet.columns = ['year', 'month', 'state', 'Residential', 'Commercial', 'Industrial', 'Transportation']
+	sheet = pd.read_excel(io.BytesIO(data), sheet_name='Monthly_Totals-States', skiprows=3, skip_footer=1, usecols="A:C,J:M")
+	#sheet.rename(columns={'Year':'year','Month':'month','State':'state'}, inplace=True)
+	sheet.columns = ['year', 'month', 'state', 'Residential', 'Commercial', 'Industrial', 'Transportation']
 	f2018count = pd.melt(sheet, id_vars=['year', 'month', 'state'], value_vars=['Residential', 'Commercial', 'Industrial', 'Transportation'], var_name='sector', value_name='value')
 	f2018count['units'] = "#"
 	f2018count['nem'] = 'Yes'
@@ -51,8 +52,9 @@ def getCount(url):
 
 def getStorageCount(url):
 	data = requests.get(url).content
-	sheet = pd.read_excel(io.BytesIO(data), sheetname="Monthly_Totals-States", skiprows=3, skip_footer=1, parse_cols="A:C,T:W")
-	sheet.rename(columns={'Year':'year', 'Month':'month', 'State':'state'}, inplace=True)
+	sheet = pd.read_excel(io.BytesIO(data), sheet_name="Monthly_Totals-States", skiprows=3, skip_footer=1, usecols="A:C,T:W")
+	#sheet.rename(columns={'Year':'year', 'Month':'month', 'State':'state'}, inplace=True)
+	sheet.columns=['year', 'month', 'state', 'Residential', 'Commercial', 'Industrial', 'Transportation']
 	f20184 = pd.melt(sheet, id_vars=['year', 'month', 'state'], value_vars=['Residential', 'Commercial', 'Industrial', 'Transportation'], var_name='sector', value_name='value')
 	f20184['units'] = '#'
 	f20184['nem'] = 'Yes'
@@ -62,8 +64,9 @@ def getStorageCount(url):
 
 def getVirtualCapacity(url):
 	data = requests.get(url).content
-	sheet = pd.read_excel(io.BytesIO(data), sheetname="Monthly_Totals-States", skiprows=3, skip_footer=1, parse_cols="A:C,Y:AB")
-	sheet.rename(columns={'Year':'year', 'Month':'month', 'State':'state'}, inplace=True)
+	sheet = pd.read_excel(io.BytesIO(data), sheet_name="Monthly_Totals-States", skiprows=3, skip_footer=1, usecols="A:C,Y:AB")
+	#sheet.rename(columns={'Year':'year', 'Month':'month', 'State':'state'}, inplace=True)
+	sheet.columns=['year', 'month', 'state', 'Residential', 'Commercial', 'Industrial', 'Transportation']
 	f20185 = pd.melt(sheet, id_vars=['year', 'month', 'state'], value_vars=['Residential', 'Commercial', 'Industrial', 'Transportation'], var_name='sector', value_name='value')
 	f20185['units'] = 'MW'
 	f20185['nem'] = 'Yes'
@@ -73,8 +76,9 @@ def getVirtualCapacity(url):
 
 def getVirtualCount(url):
 	data = requests.get(url).content
-	sheet = pd.read_excel(io.BytesIO(data), sheetname="Monthly_Totals-States", skiprows=3, skip_footer=1, parse_cols="A:C,AD:AG")
-	sheet.rename(columns={'Year':'year', 'Month':'month', 'State':'state'}, inplace=True)
+	sheet = pd.read_excel(io.BytesIO(data), sheet_name="Monthly_Totals-States", skiprows=3, skip_footer=1, usecols="A:C,AD:AG")
+	#sheet.rename(columns={'Year':'year', 'Month':'month', 'State':'state'}, inplace=True)
+	sheet.columns=['year', 'month', 'state', 'Residential', 'Commercial', 'Industrial', 'Transportation']
 	f20186 = pd.melt(sheet, id_vars=['year', 'month', 'state'], value_vars=['Residential', 'Commercial', 'Industrial', 'Transportation'], var_name='sector', value_name='value')
 	f20186['units'] = '#'
 	f20186['nem'] = 'Yes'

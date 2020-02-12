@@ -26,7 +26,7 @@ def get861M():
 	if(df.empty):
 		print("Error with dataframe. Listed as empty.")
 	else:
-		df.to_excel('/mnt/c/Users/AHolm/SEIA/OneDrive - SEIA/codebin/datasources/SEIA_DB/Outputs/eia826_2019Q1_NonNEM_v1.xlsx')
+		#df.to_excel('/mnt/c/Users/AHolm/SEIA/OneDrive - SEIA/codebin/datasources/SEIA_DB/Outputs/eia826_2019Q1_NonNEM_v1.xlsx')
 		to_sql(df)
 		print(df.head(), '\n', df.tail())
 		print("Successfully updated table markets.eia_826_nonnem")

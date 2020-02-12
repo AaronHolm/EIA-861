@@ -35,7 +35,7 @@ def combine826():
   nonnem = pd.read_sql(queryNonNEM, engine)
   nonnem['nonnem_value'] = [pd.to_numeric(x) if isinstance(x, str) else x for x in nonnem['nonnem_value']]
   nonnem['nonnem_value'] = nonnem['nonnem_value'].fillna(0)
-  writer = pd.ExcelWriter('/mnt/c/Users/AHolm/SEIA/OneDrive - SEIA/codebin/datasources/SEIA_DB/Outputs/tmp/eia826_debug.xlsx', engine='xlsxwriter')
+  writer = pd.ExcelWriter('/mnt/c/Users/AHolm/Work Folders/Documents/SMI/eia826_debug.xlsx', engine='xlsxwriter')
   nem.to_excel(writer, sheet_name='nem')
   nonnem.to_excel(writer, sheet_name='nonnem')
   #eia826 = nem.merge(nonnem, how='outer', on=['state', 'year', 'month', 'sector'])
@@ -52,4 +52,4 @@ def combine826():
 if __name__ == '__main__':
   df = combine826()
   to_sql(df)
-  df.to_excel('/mnt/c/Users/AHolm/SEIA/OneDrive - SEIA/codebin/datasources/SEIA_DB/Outputs/tmp/eia826_combined_2019Q1.xlsx')
+  #df.to_excel('/mnt/c/Users/AHolm/SEIA/OneDrive - SEIA/codebin/datasources/SEIA_DB/Outputs/tmp/eia826_combined_2019Q1.xlsx')

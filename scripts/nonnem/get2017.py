@@ -10,10 +10,12 @@ import io
 # ...
 
 def getExcelFile(data, cols, units, sheetname):
-	sheet = pd.read_excel(io.BytesIO(data), sheetname='Monthly_Totals-States', skiprows=2, skip_footer=1, parse_cols=cols)
-	sheet.rename(columns={'Year':'year', 'Month':'month', 'State':'state', 'Type':'type'}, inplace=True)
+	sheet = pd.read_excel(io.BytesIO(data), sheet_name='Monthly_Totals-States', skiprows=2, skip_footer=1, usecols=cols)
+	sheet.columns = ['year', 'month', 'state', 'Residential', 'Commercial', 'Industrial', 'Transportation', 'Direct Connected']
+	#sheet.rename(columns={'Year':'year', 'Month':'month', 'State':'state', 'Type':'type'}, inplace=True)
 	fileyyyy = pd.melt(sheet, id_vars=['year', 'month', 'state'], value_vars=['Residential', 'Commercial', 'Industrial', 'Transportation', 'Direct Connected'], var_name='sector', value_name='value')
 	fileyyyy['units'] = units
+	#fileyyyy['type'] = sheetname
 	#fileyyyy['type'] = 'PV'
 	#if(sheetname != 'Photovoltaic'):
 	#	fileyyyy['type'] = 'NA'

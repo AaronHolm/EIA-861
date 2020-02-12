@@ -32,14 +32,14 @@ def get861M():
 	#df_2018 = processer(df_2018)
 
 	df_combined = pd.concat([df_2011, df_2012, df_2013, df_2014, df_2015, df_2016, df_2017, df_2018, df_2019])
-	df_combined.to_excel('/mnt/c/Users/AHolm/SEIA/OneDrive - SEIA/codebin/datasources/SEIA_DB/Outputs/tmp/861M.xlsx')
+	#df_combined.to_excel('/mnt/c/Users/AHolm/SEIA/OneDrive - SEIA/codebin/datasources/SEIA_DB/Outputs/tmp/861M.xlsx')
 
 	df = processer(df_combined)
 	#df_mix.loc[:, 'value'] = [pd.to_numeric(x, errors='coerce') if isinstance(x, str) else float(x) for x in df_mix['value']]
 	if(df.empty):
 		print("Error with dataframe. Listed as empty.")
 	else:
-		df.to_excel('/mnt/c/Users/AHolm/SEIA/OneDrive - SEIA/codebin/datasources/SEIA_DB/Outputs/eia826_2019Q1_1.xlsx')
+		#df.to_excel('/mnt/c/Users/AHolm/SEIA/OneDrive - SEIA/codebin/datasources/SEIA_DB/Outputs/eia826_2019Q3_1.xlsx')
 		to_sql(df)
 		print(df.head(), '\n', df.tail())
 		print("Successfully updated table markets.eia_826")

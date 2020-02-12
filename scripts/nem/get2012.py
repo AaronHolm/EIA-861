@@ -4,7 +4,7 @@ import io
 
 def getCapacity(url):
 	data = requests.get(url).content
-	sheet = pd.read_excel(io.BytesIO(data), sheetname='Month_State', parse_cols="A:C,I:L")
+	sheet = pd.read_excel(io.BytesIO(data), sheet_name='Month_State', usecols="A:C,I:L")
 	sheet.columns=['year', 'month', 'state', 'Residential', 'Commercial', 'Industrial', 'Transportation']
 	f2012cap = pd.melt(sheet, id_vars=['year', 'month', 'state'], value_vars=['Residential', 'Commercial', 'Industrial', 'Transportation'], var_name='sector', value_name='value')
 	f2012cap['units'] = 'MW'
@@ -15,9 +15,9 @@ def getCapacity(url):
 
 def getEnergySoldBack(url):
 	data = requests.get(url).content
-	sheet = pd.read_excel(io.BytesIO(data), sheetname='Month_State', parse_cols="A:G")
+	sheet = pd.read_excel(io.BytesIO(data), sheet_name='Month_State', usecols="A:G")
 	sheet.columns = ['year', 'month', 'state', 'Residential', 'Commercial', 'Industrial', 'Transportation']
-	f2012esb = pd.melt(sheet, id_vars=['year', 'month', 'state'], value_vars=['Residential', 'Commercial', 'Industrial', 'Transportationi'], var_name='sector', value_name='value')
+	f2012esb = pd.melt(sheet, id_vars=['year', 'month', 'state'], value_vars=['Residential', 'Commercial', 'Industrial', 'Transportation'], var_name='sector', value_name='value')
 	f2012esb['units'] = 'MWh'
 	f2012esb['nem'] = 'Yes'
 	f2012esb['type'] = 'PV'
@@ -26,7 +26,7 @@ def getEnergySoldBack(url):
 
 def getCount(url):
 	data = requests.get(url).content
-	sheet = pd.read_excel(io.BytesIO(data), sheetname='Month_State', parse_cols="A:C,N:Q")
+	sheet = pd.read_excel(io.BytesIO(data), sheet_name='Month_State', usecols="A:C,N:Q")
 	sheet.columns = ['year', 'month', 'state', 'Residential', 'Commercial', 'Industrial', 'Transportation']
 	f2012count = pd.melt(sheet, id_vars=['year', 'month', 'state'], value_vars=['Residential', 'Commercial', 'Industrial', 'Transportation'], var_name='sector', value_name='value')
 	f2012count['units'] = "#"
